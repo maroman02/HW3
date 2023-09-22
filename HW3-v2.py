@@ -1,8 +1,8 @@
 # Your name: Max Roman
 # Your student id: 62934840
 # Your email: maroman@umich.edu
-# Who or what you worked with on this homework (including generative AI like ChatGPT):
-# If you worked with generative AI also add a statement for how you used it.  
+# Who or what you worked with on this homework (including generative AI like ChatGPT): Worked individually
+# If you worked with generative AI also add a statement for how you used it. Did not use AI
 # e.g.: 
 # Asked Chatgpt hints for debugging and suggesting the general sturcture of the code
 
@@ -52,11 +52,10 @@ class CootieCatcher():
         if pick not in nums:
             print("That number is not one you can choose! Please try again")
             while pick not in nums:
-                pick = input("Pick a number - " + str(self.nums)[:] + " ")
-
-        else:
-            self.answers_history_list.append(pick)
-            return self.answers_list[pick]
+                pick = int(input("Pick a number - " + str(nums)[:] + ": "))
+                
+        self.answers_history_list.append(pick)
+        return self.answers_list[pick]
 
     # Create the ask method 
     # Arguments: self (the curent object)
@@ -78,12 +77,12 @@ class CootieCatcher():
             self.questions_history_list.append(question)
             favorite_color = input("What is your favorite color: ")
             if len(favorite_color) % 2 == 0:
-                number_selection = input("Pick a number - " + str(self.num1_list)[:] + ": ")
+                number_selection = int(input("Pick a number - " + str(self.num1_list)[:] + ": "))
                 
                 return self.get_fortune(self.num1_list, number_selection)
             
             else:
-                number_selection = input("Pick a number - " + str(self.num2_list)[:] + ": ")
+                number_selection = int(input("Pick a number - " + str(self.num2_list)[:] + ": "))
                 
                 return self.get_fortune(self.num2_list, number_selection)
             
@@ -102,7 +101,7 @@ class CootieCatcher():
         else:
             question_num = 1
             for i in range(len(self.questions_history_list)):
-                print(str(question_num) + " " + self.questions_history_list[i] + " - " + self.answers_history_list[i])
+                print(str(question_num) + " " + self.questions_history_list[i] + " - " + self.answers_list[self.answers_history_list[i]])
                 question_num += 1
                     
 def main():
@@ -122,38 +121,72 @@ def main():
     question = input("Ask a question or type quit: ")
     while question != "quit":
         # Loop while question is not "quit"
-        game.ask(question)
+        print(game.ask(question))
+        question = input("Ask a question or type quit: ")
 
     game.print_question_history()
     # show the output of print_question_history
     
 def test():
-    possible_answers = ["Not Sure", "Potentially", "It is certain", "Probable", "Cannot predict now", "Very doubtful", "Don't count on it", "Absolutely not"]
+
+    possible_answers = ["Not sure", "Potentially", "It is certain", "Probable", "Cannot predict now", "Very doubtful", "Don't count on it", "Absolutely not"]
     test_num_one = [0, 1, 2, 3]
+    print("test_num_one: " + str(test_num_one)[:])
+
     test_num_two = [4, 5, 6, 7]
+    print("test_num_two: " + str(test_num_two)[:])
 
     run = CootieCatcher(possible_answers, test_num_one, test_num_two)
     # creates test run CootieCatcher object
 
+# -------------------------------------------------
+
+    print()
+    print("Testing str method")
+
+    print(run)
+    # tests  __str__() functionality
+
+# ----------------------------------------------------
+    print()
+    print("Testing null print_question_history")
+
     run.print_question_history()
     # tests when no questions have been asked
 
-    run.ask("Will I have success this year?")
+# ----------------------------------------------------
+    print()
+    print("Testing use cases of ask")
+
+    print(run.ask("Will I have success this year?"))
     # asks sample question
-    run.ask("Will I have success this year?")
+    
+    print("Redundant question:")
+    print()
+    print(run.ask("Will I have success this year?"))
     # asks same question over again
 
+# ----------------------------------------------------
+
+    print()
+    print("Testing get_fortune")
+
     pick_one = 2
-    # correct pick for test_num_one
-    run.get_fortune(test_num_one, pick_one)
+    print("Correct pick for test_num_one - 2")
+    print(run.get_fortune(test_num_one, pick_one))
 
     pick_two = 5
-    # correct pick for test_num_two
-    run.get_fortune(test_num_two, pick_two)
+    print("Correct pick for test_num_two - 5")
+    print(run.get_fortune(test_num_two, pick_two))
 
     pick_three = 9
-    # incorrect pick for test_num_one
-    run.get_fortune(test_num_one, pick_three)
+    print("Incorrect pick for test_num_one - 9")
+    print(run.get_fortune(test_num_one, pick_three))
+
+# --------------------------------------------------
+
+    print()
+    print("Testing multiple asks/print_question_history")
 
     run.ask("Will the Tigers win today?")
     run.ask("Will the Lions make it to the Super Bowl?")
@@ -162,12 +195,10 @@ def test():
     run.print_question_history()
     # tests when multiple questions have been asked
 
-    print(run)
-    # tests  __str__() functionality
 
 
 # Only run the main function if this file is being run (not imported)
 if __name__ == "__main__":
-    main()
-   # test()
+   # main()
+    test()
   
