@@ -77,13 +77,13 @@ class CootieCatcher():
         else:
             self.questions_history_list.append(question)
             favorite_color = input("What is your favorite color: ")
-            if len(favorite_color % 2 == 0):
-                number_selection = input("Pick a number - " + str(self.num1_list)[:] + " ")
+            if len(favorite_color) % 2 == 0:
+                number_selection = input("Pick a number - " + str(self.num1_list)[:] + ": ")
                 
                 return self.get_fortune(self.num1_list, number_selection)
             
             else:
-                number_selection = input("Pick a number - " + str(self.num2_list)[:] + " ")
+                number_selection = input("Pick a number - " + str(self.num2_list)[:] + ": ")
                 
                 return self.get_fortune(self.num2_list, number_selection)
             
@@ -103,7 +103,7 @@ class CootieCatcher():
             question_num = 1
             for i in range(len(self.questions_history_list)):
                 print(str(question_num) + " " + self.questions_history_list[i] + " - " + self.answers_history_list[i])
-
+                question_num += 1
                     
 def main():
 
@@ -120,7 +120,7 @@ def main():
     # create the CootieCatcher object
 
     question = input("Ask a question or type quit: ")
-    while question != quit:
+    while question != "quit":
         # Loop while question is not "quit"
         game.ask(question)
 
@@ -169,5 +169,5 @@ def test():
 # Only run the main function if this file is being run (not imported)
 if __name__ == "__main__":
     main()
-    test()
+   # test()
   
