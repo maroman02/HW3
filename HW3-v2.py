@@ -96,30 +96,78 @@ class CootieCatcher():
     # Otherwise, 
     # the method prints "<number> <question> - <answer>" for each of the values in the questions_history_list, each on a separate line.
     def print_question_history(self):
-        if len(self.questions_history_list == 0):
+        if len(self.questions_history_list) == 0:
             print("None yet")
+
+        else:
+            question_num = 1
+            for i in range(len(self.questions_history_list)):
+                print(str(question_num) + " " + self.questions_history_list[i] + " - " + self.answers_history_list[i])
+
                     
 def main():
 
+    possible_answers = ["Definitely", "Most Likely", "It is certain", "Maybe", "Cannot predict now", "Very doubtful", "Don't count on it", "Absolutely not"]
     # define the list of 8 possible answers
 
-    # define the first list of numbers from 0 - 7 inclusive 
-    # define the second list of numbers from 0 - 7 inclusive that were not in the first list
+    list_one = [0, 1, 3, 7]
+    # defines the first list of numbers from 0 - 7 inclusive 
 
+    list_two = [2, 4, 5, 6]
+    # defines the second list of numbers from 0 - 7 inclusive that were not in the first list
+
+    game = CootieCatcher(possible_answers, list_one, list_two)
     # create the CootieCatcher object
 
-    # Get the first question or "quit"
+    question = input("Ask a question or type quit: ")
+    while question != quit:
+        # Loop while question is not "quit"
+        game.ask(question)
 
-    # Loop while question is not "quit"
+    game.print_question_history()
+    # show the output of print_question_history
+    
+def test():
+    possible_answers = ["Not Sure", "Potentially", "It is certain", "Probable", "Cannot predict now", "Very doubtful", "Don't count on it", "Absolutely not"]
+    test_num_one = [0, 1, 2, 3]
+    test_num_two = [4, 5, 6, 7]
 
-    # show the output of print_question_history 
+    run = CootieCatcher(possible_answers, test_num_one, test_num_two)
+    # creates test run CootieCatcher object
 
-    # remove pass when you write code above
-    pass
+    run.print_question_history()
+    # tests when no questions have been asked
+
+    run.ask("Will I have success this year?")
+    # asks sample question
+    run.ask("Will I have success this year?")
+    # asks same question over again
+
+    pick_one = 2
+    # correct pick for test_num_one
+    run.get_fortune(test_num_one, pick_one)
+
+    pick_two = 5
+    # correct pick for test_num_two
+    run.get_fortune(test_num_two, pick_two)
+
+    pick_three = 9
+    # incorrect pick for test_num_one
+    run.get_fortune(test_num_one, pick_three)
+
+    run.ask("Will the Tigers win today?")
+    run.ask("Will the Lions make it to the Super Bowl?")
+    # asks some more questions
+
+    run.print_question_history()
+    # tests when multiple questions have been asked
+
+    print(run)
+    # tests  __str__() functionality
 
 
 # Only run the main function if this file is being run (not imported)
 if __name__ == "__main__":
     main()
-    # test() #TODO: Uncomment if you do the extra credit
+    test()
   
